@@ -1,24 +1,20 @@
 <template>
   <div class="monthly-widget">
-    This is the monthly widget
-    <div>We might need a month selector</div>
-    <input type='text' placeholder='Maybe input text boxes'/>
-    <div>
-      <input type='submit' value='And buttons too'>
-    </div>
+    <h1 class="title">Monthly Widget</h1>
+    <div>Placeholder: month selector</div>
+    <MonthlyExpenses />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import MonthlyExpenses from './MonthlyExpenses.vue';
 
 @Options({
-  props: {
-  }
+  components: { MonthlyExpenses },
 })
 
-export default class Navigation extends Vue {
-    navItems!: string[]
+export default class MonthlyWidget extends Vue {
 }
 </script>
 

@@ -7,7 +7,7 @@
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from './components/HelloWorld.vue';
 import Navigation from './components/Navigation.vue';
-import MonthlyWidget from './components/MonthlyWidget.vue';
+import MonthlyWidget from './components/MonthlyWidget/MonthlyWidget.vue';
 
 @Options({
   components: {
