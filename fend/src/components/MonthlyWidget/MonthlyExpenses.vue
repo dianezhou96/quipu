@@ -1,15 +1,13 @@
 <template>
   <div class="monthly-expenses">
     <h2 class="section-header">Monthly Expenses</h2>
-    <p>Month selected: {{ this.month }}</p>
     <div class="add-expense">
       <input type="text" placeholder="Input expense name..." />
       <input type="text" placeholder="Estimated amount" />
       <input type="submit" value="Add" />
     </div>
-    <p>{{ thisMonthlyExpenses }}</p>
     <ul class="expenses-list">
-      <li v-for="expense in thisMonthlyExpenses" :key="expense.id">
+      <li v-for="expense in selectedMonthlyExpenses" :key="expense.id">
         <input type="text" placeholder="{{expense.name}}" />
         {{ expense.name }}
         <input type="text" placeholder="Estimated amount" />
@@ -32,7 +30,7 @@ import { monthlyExpenses } from "../../mockData/monthlyExpenses";
 })
 export default class MonthlyExpenses extends Vue {
   month!: string;
-  thisMonthlyExpenses = monthlyExpenses[this.month];
+  selectedMonthlyExpenses = monthlyExpenses[this.month];
 }
 </script>
 

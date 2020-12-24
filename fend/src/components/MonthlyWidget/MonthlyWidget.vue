@@ -1,6 +1,7 @@
 <template>
   <div class="monthly-widget">
     <h1 class="title">Monthly Widget</h1>
+    <h3 class="section-header">Select month</h3>
     <input v-model="month" type="month" />
     <MonthlyExpenses v-if="month" month="month" />
     <CategoricalBudgets v-if="month" />
