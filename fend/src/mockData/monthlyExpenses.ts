@@ -1,4 +1,4 @@
-interface MonthlyExpenseFields {
+export interface MonthlyExpenseFields {
   id: number;
   name: string;
   amountEstimated: number;

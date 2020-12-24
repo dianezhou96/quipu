@@ -8,11 +8,18 @@
     </div>
     <ul class="expenses-list">
       <li v-for="expense in selectedMonthlyExpenses" :key="expense.id">
-        <input type="text" placeholder="{{expense.name}}" />
-        {{ expense.name }}
-        <input type="text" placeholder="Estimated amount" />
+        <input type="text" :placeholder="'Expense name: ' + expense.name" />
+        <input
+          type="text"
+          :placeholder="'Estimated amount: $' + expense.amountEstimated"
+        />
         <input class="edit" type="submit" value="Edit" />
-        <input type="text" placeholder="Actual amount" />
+        <input
+          v-if="expense.amountActual"
+          type="text"
+          :placeholder="'Actual amount: ' + expense.amountActual"
+        />
+        <input v-else type="text" placeholder="Enter actual amount" />
         <input type="submit" value="Submit" />
       </li>
     </ul>
@@ -21,7 +28,10 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { monthlyExpenses } from "../../mockData/monthlyExpenses";
+import {
+  monthlyExpenses,
+  MonthlyExpenseFields,
+} from "../../mockData/monthlyExpenses";
 
 @Options({
   props: {
@@ -30,7 +40,7 @@ import { monthlyExpenses } from "../../mockData/monthlyExpenses";
 })
 export default class MonthlyExpenses extends Vue {
   month!: string;
-  selectedMonthlyExpenses!: object[];
+  selectedMonthlyExpenses!: MonthlyExpenseFields[];
   beforeCreate() {
     this.selectedMonthlyExpenses = monthlyExpenses[this.month];
   }
