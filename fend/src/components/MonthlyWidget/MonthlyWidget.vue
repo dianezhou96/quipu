@@ -1,12 +1,9 @@
 <template>
   <div class="monthly-widget">
     <h1 class="title">Monthly Widget</h1>
-    <input v-model="monthSelected" type="month" />
-    <input v-model="test" type="text" />
-    <p>Month selected: {{ monthSelected }}</p>
-    <p>{{test}}</p>
-    <MonthlyExpenses />
-    <CategoricalBudgets />
+    <input v-model="month" type="month" />
+    <MonthlyExpenses v-if="month" month="month" />
+    <CategoricalBudgets v-if="month" />
   </div>
 </template>
 
@@ -19,8 +16,7 @@ import CategoricalBudgets from "./CategoricalBudgets.vue";
   components: { MonthlyExpenses, CategoricalBudgets },
 })
 export default class MonthlyWidget extends Vue {
-  test = 'hi';
-  monthSelected = '';
+  month = null;
 }
 </script>
 
