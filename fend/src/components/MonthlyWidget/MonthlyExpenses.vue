@@ -30,7 +30,10 @@ import { monthlyExpenses } from "../../mockData/monthlyExpenses";
 })
 export default class MonthlyExpenses extends Vue {
   month!: string;
-  selectedMonthlyExpenses = monthlyExpenses[this.month];
+  selectedMonthlyExpenses!: object[];
+  beforeCreate() {
+    this.selectedMonthlyExpenses = monthlyExpenses[this.month];
+  }
 }
 </script>
 
