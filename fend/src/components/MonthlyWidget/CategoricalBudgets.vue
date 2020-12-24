@@ -36,18 +36,15 @@
 import { Options, Vue } from "vue-class-component";
 
 @Options({
-  props: {
-  }
+  props: {},
 })
-
-export default class MonthlyExpenses extends Vue {
-}
+export default class CategoricalBudgets extends Vue {}
 </script>
 
 <style scoped lang="scss">
 .predicted-expenses {
-    flex-grow: 1;
-    padding: 10px;
+  flex-grow: 1;
+  padding: 10px;
 }
 ul {
   list-style-type: none;

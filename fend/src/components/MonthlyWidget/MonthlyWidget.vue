@@ -1,21 +1,22 @@
 <template>
   <div class="monthly-widget">
     <h1 class="title">Monthly Widget</h1>
-    <div>Placeholder: month selector</div>
+    <input v-model="monthSelected" type="month" />
+    <p>Month selected: {{ monthSelected }}</p>
     <MonthlyExpenses />
+    <CategoricalBudgets />
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import MonthlyExpenses from './MonthlyExpenses.vue';
+import { Options, Vue } from "vue-class-component";
+import MonthlyExpenses from "./MonthlyExpenses.vue";
+import CategoricalBudgets from "./CategoricalBudgets.vue";
 
 @Options({
-  components: { MonthlyExpenses },
+  components: { MonthlyExpenses, CategoricalBudgets },
 })
-
-export default class MonthlyWidget extends Vue {
-}
+export default class MonthlyWidget extends Vue {}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

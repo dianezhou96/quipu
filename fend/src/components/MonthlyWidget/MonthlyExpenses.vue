@@ -34,20 +34,16 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import { monthlyExpenses } from "../../mockData/monthlyExpenses";
 
-@Options({
-  props: {
-  }
-})
-
-export default class MonthlyExpenses extends Vue {
-}
+@Options({})
+export default class MonthlyExpenses extends Vue {}
 </script>
 
 <style scoped lang="scss">
 .predicted-expenses {
-    flex-grow: 1;
-    padding: 10px;
+  flex-grow: 1;
+  padding: 10px;
 }
 ul {
   list-style-type: none;
