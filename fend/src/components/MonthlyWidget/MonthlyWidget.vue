@@ -2,7 +2,9 @@
   <div class="monthly-widget">
     <h1 class="title">Monthly Widget</h1>
     <input v-model="monthSelected" type="month" />
+    <input v-model="test" type="text" />
     <p>Month selected: {{ monthSelected }}</p>
+    <p>{{test}}</p>
     <MonthlyExpenses />
     <CategoricalBudgets />
   </div>
@@ -16,7 +18,10 @@ import CategoricalBudgets from "./CategoricalBudgets.vue";
 @Options({
   components: { MonthlyExpenses, CategoricalBudgets },
 })
-export default class MonthlyWidget extends Vue {}
+export default class MonthlyWidget extends Vue {
+  test = 'hi';
+  monthSelected = '';
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
