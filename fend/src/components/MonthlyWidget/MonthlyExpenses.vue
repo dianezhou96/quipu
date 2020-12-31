@@ -2,9 +2,21 @@
   <div class="monthly-expenses">
     <h2 class="section-header">Monthly Expenses</h2>
     <div class="add-expense">
-      <input type="text" placeholder="Input expense name..." />
-      <input type="text" placeholder="Estimated amount" />
-      <input type="submit" value="Add" />
+      <input
+        v-model="expenseName"
+        type="text"
+        placeholder="Input expense name..."
+      />
+      <input
+        v-model="amountEstimated"
+        type="text"
+        placeholder="Estimated amount"
+      />
+      <input
+        type="submit"
+        value="Add"
+        v-on:click="addExpense(expenseName, amountEstimated)"
+      />
     </div>
     <table class="expenses-table">
       <thead>
@@ -54,6 +66,9 @@ export default class MonthlyExpenses extends Vue {
   expenseKeys = ["id", "name", "amountEstimated", "amountActual"];
   get selectedMonthlyExpenses(): MonthlyExpenseFields[] {
     return monthlyExpenses[this.month];
+  }
+  addExpense(expenseName, amountEstimated) {
+    alert(expenseName + amountEstimated);
   }
 }
 </script>
