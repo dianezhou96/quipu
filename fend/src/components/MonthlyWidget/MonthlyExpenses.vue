@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Watch, Component, Prop, Vue } from "vue-property-decorator";
 import {
   monthlyExpenses,
   MonthlyExpenseFields,
@@ -66,9 +66,24 @@ const expenseKeys = ["id", "name", "amountEstimated", "amountActual"];
 @Component
 export default class MonthlyExpenses extends Vue {
   @Prop() month!: string;
-  get selectedMonthlyExpenses(): MonthlyExpenseFields[] {
-    return monthlyExpenses[this.month];
+
+  @Watch("month", { immediate: true })
+  async selectedMonthlyExpenses(): Promise<MonthlyExpenseFields[]> {
+    const {
+      data: { expenses },
+    } = await axios({
+      url:
+        "/monthly_widget/get_records?type=monthly_expense&user_id=7&month=" +
+        this.month,
+    });
+    return expenses.map((expense) => ({
+      id: expense.id,
+      name: expense.name,
+      amountEstimated: expense.estimated,
+      amountActual: expense.actual,
+    }));
   }
+
   async addExpense(expenseName: string, amountEstimated: string) {
     const post = {
       userId: 7,
