@@ -77,7 +77,7 @@ export default class MonthlyExpenses extends Vue {
       estimated: amountEstimated,
       type: "monthly_expense",
     };
-    return await axios.post("/monthly_widget", post);
+    return await axios.post("/monthly_widget/add_record", post);
   }
 }
 </script>
