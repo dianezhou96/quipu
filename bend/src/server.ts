@@ -1,18 +1,17 @@
+const express = require('express'),
+      app = express(),
+      cookieParser = require('cookie-parser'),
+      bodyParser = require('body-parser'),
+      http = require('http').Server(app),
+      router = express.Router(),
+      session = require('express-session'),
+      pg = require('pg'),
+      morgan = require('morgan')('dev');
+
 const fs = require('fs'),
       config = JSON.parse(fs.readFileSync('config.json', "utf8"));
 
-let express = require('express'),
-    app = express(),
-    morgan = require('morgan');
-
-const cookieParser = require('cookie-parser'),
-  bodyParser = require('body-parser'),
-  http = require('http').Server(app),
-  router = express.Router(),
-  session = require('express-session'),
-  {Client} = require('pg');
-
-const db = new Client({
+const db = new pg.Client({
   user: config.db_user,
   host: config.db_host,
   database: config.db_name,
@@ -21,22 +20,17 @@ const db = new Client({
 });
 
 
-let MonthlyWidget = require('./widgets/MonthlyWidget')(db);
+const MonthlyWidget = require('./widgets/MonthlyWidget')(db);
 
-app.use(morgan('dev'));
+// middlewares
+app.use(morgan);
+//app.use(cookieParser(config.sessionSecret));
+app.use(bodyParser.json());
 // serve SPA scaffold
 app.use(express.static('../fend/dist'));
+
+// widgets
 app.use('/monthly_widget', MonthlyWidget);
-
-//app.use(cookieParser(config.sessionSecret));
-//app.use(bodyParser.json());
-
-// Passport settings
-//app.use(session({ secret: config.sessionSecret, 
-//                  resave: false, 
-//                  saveUninitialized: false}));
-//app.use(passport.initialize());
-//app.use(passport.session());
 
 db.connect((err: Error) => {
   if (err) {
