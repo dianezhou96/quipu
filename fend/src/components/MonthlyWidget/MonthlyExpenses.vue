@@ -76,11 +76,11 @@ export default class MonthlyExpenses extends Vue {
         "/monthly_widget/get_records?type=monthly_expense&user_id=7&month=" +
         this.month,
     });
-    return expenses.map((expense) => ({
+    return expenses.map((expense: MonthlyExpenseFields) => ({
       id: expense.id,
       name: expense.name,
-      amountEstimated: expense.estimated,
-      amountActual: expense.actual,
+      amountEstimated: expense.amountEstimated,
+      amountActual: expense.amountActual,
     }));
   }
 
