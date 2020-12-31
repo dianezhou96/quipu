@@ -54,21 +54,30 @@
 </template>
 
 <script lang="ts">
-import { Watch, Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import {
   monthlyExpenses,
   MonthlyExpenseFields,
 } from "../../mockData/monthlyExpenses";
+import axios from "axios";
+
+const expenseKeys = ["id", "name", "amountEstimated", "amountActual"];
 
 @Component
 export default class MonthlyExpenses extends Vue {
   @Prop() month!: string;
-  expenseKeys = ["id", "name", "amountEstimated", "amountActual"];
   get selectedMonthlyExpenses(): MonthlyExpenseFields[] {
     return monthlyExpenses[this.month];
   }
-  addExpense(expenseName, amountEstimated) {
-    alert(expenseName + amountEstimated);
+  async addExpense(expenseName: string, amountEstimated: string) {
+    const post = {
+      userId: 7,
+      date: this.month,
+      name: expenseName,
+      estimated: amountEstimated,
+      type: "monthly_expense",
+    };
+    return await axios.post("/monthly_widget", post);
   }
 }
 </script>
