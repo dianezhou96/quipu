@@ -1,15 +1,17 @@
 <template>
-  <Navigation :navItems="['NavItem1', 'NavItem2', 'NavItem3']" />
-  <MonthlyWidget />
+  <div id="app">
+    <Navigation :navItems="['NavItem1', 'NavItem2', 'NavItem3']" />
+    <MonthlyWidget />
+  </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import HelloWorld from "./components/HelloWorld.vue";
 import Navigation from "./components/Navigation.vue";
 import MonthlyWidget from "./components/MonthlyWidget/MonthlyWidget.vue";
 
-@Options({
+@Component({
   components: {
     HelloWorld,
     Navigation,

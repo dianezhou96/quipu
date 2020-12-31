@@ -10,15 +10,16 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Options({
-  props: {
-    navItems : Array,
-  }
-})
+//@Options({
+//  props: {
+//    navItems : Array,
+//  }
+//})
+@Component
 export default class Navigation extends Vue {
-    navItems!: string[]
+    @Prop() navItems!: string[]
 }
 </script>
 

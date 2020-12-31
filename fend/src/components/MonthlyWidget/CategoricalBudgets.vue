@@ -33,11 +33,9 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Options({
-  props: {},
-})
+@Component
 export default class CategoricalBudgets extends Vue {}
 </script>
 

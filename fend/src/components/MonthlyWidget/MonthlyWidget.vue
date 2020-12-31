@@ -9,12 +9,15 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Component, Vue } from "vue-property-decorator";
 import MonthlyExpenses from "./MonthlyExpenses.vue";
 import CategoricalBudgets from "./CategoricalBudgets.vue";
 
-@Options({
-  components: { MonthlyExpenses, CategoricalBudgets },
+@Component({
+  components: {
+    MonthlyExpenses,
+    CategoricalBudgets
+  }
 })
 export default class MonthlyWidget extends Vue {
   month = null;

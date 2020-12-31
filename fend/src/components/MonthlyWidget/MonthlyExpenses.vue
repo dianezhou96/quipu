@@ -27,25 +27,40 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Watch, Component, Prop, Vue } from "vue-property-decorator";
 import {
   monthlyExpenses,
   MonthlyExpenseFields,
 } from "../../mockData/monthlyExpenses";
 
-@Options({
-  props: {
-    month: String,
-  },
-  computed: {
-    selectedMonthlyExpenses: function() {
-      return monthlyExpenses[this.month];
-    },
-  },
-})
+//@Options({
+//  props: {
+//    month: String,
+//  },
+//  computed: {
+//    //selectedMonthlyExpenses: function() {
+//    //  return monthlyExpenses[this.month];
+//    //},
+//  },
+//  watch: {
+//    month: function() {
+//      console.log('month')
+//    }
+//  }
+//})
+
+@Component
 export default class MonthlyExpenses extends Vue {
-  month!: string;
-  selectedMonthlyExpenses!: MonthlyExpenseFields[];
+  @Prop() month!: string;
+  //selectedMonthlyExpenses!: MonthlyExpenseFields[];
+  get selectedMonthlyExpenses(): MonthlyExpenseFields[] {
+    return monthlyExpenses[this.month];
+  }
+
+  @Watch('month')
+  test(): void {
+    console.log('test')
+  }
 }
 </script>
 
