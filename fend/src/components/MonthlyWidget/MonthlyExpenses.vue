@@ -37,13 +37,15 @@ import {
   props: {
     month: String,
   },
+  computed: {
+    selectedMonthlyExpenses: function() {
+      return monthlyExpenses[this.month];
+    },
+  },
 })
 export default class MonthlyExpenses extends Vue {
   month!: string;
   selectedMonthlyExpenses!: MonthlyExpenseFields[];
-  beforeCreate() {
-    this.selectedMonthlyExpenses = monthlyExpenses[this.month];
-  }
 }
 </script>
 
