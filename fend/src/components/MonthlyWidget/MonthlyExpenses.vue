@@ -2,11 +2,38 @@
   <div class="monthly-expenses">
     <h2 class="section-header">Monthly Expenses</h2>
     <div class="add-expense">
-      <input type="text" placeholder="Input expense name..." />
-      <input type="text" placeholder="Estimated amount" />
-      <input type="submit" value="Add" />
+      <input
+        v-model="expenseName"
+        type="text"
+        placeholder="Input expense name..."
+      />
+      <input
+        v-model="amountEstimated"
+        type="text"
+        placeholder="Estimated amount"
+      />
+      <input
+        type="submit"
+        value="Add"
+        v-on:click="addExpense(expenseName, amountEstimated)"
+      />
     </div>
-    <ul class="expenses-list">
+    <table class="expenses-table">
+      <thead>
+        <tr>
+          <th v-for="key in expenseKeys" :key="key">{{ key }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="expense in selectedMonthlyExpenses" :key="expense.id">
+          <td v-for="key in expenseKeys" :key="key">
+            {{ expense[key] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- <ul class="expenses-list">
       <li v-for="expense in selectedMonthlyExpenses" :key="expense.id">
         <input type="text" :placeholder="'Expense name: ' + expense.name" />
         <input
@@ -22,7 +49,7 @@
         <input v-else type="text" placeholder="Enter actual amount" />
         <input type="submit" value="Submit" />
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -33,48 +60,34 @@ import {
   MonthlyExpenseFields,
 } from "../../mockData/monthlyExpenses";
 
-//@Options({
-//  props: {
-//    month: String,
-//  },
-//  computed: {
-//    //selectedMonthlyExpenses: function() {
-//    //  return monthlyExpenses[this.month];
-//    //},
-//  },
-//  watch: {
-//    month: function() {
-//      console.log('month')
-//    }
-//  }
-//})
-
 @Component
 export default class MonthlyExpenses extends Vue {
   @Prop() month!: string;
-  //selectedMonthlyExpenses!: MonthlyExpenseFields[];
+  expenseKeys = ["id", "name", "amountEstimated", "amountActual"];
   get selectedMonthlyExpenses(): MonthlyExpenseFields[] {
     return monthlyExpenses[this.month];
   }
-
-  @Watch('month')
-  test(): void {
-    console.log('test')
+  addExpense(expenseName, amountEstimated) {
+    alert(expenseName + amountEstimated);
   }
 }
 </script>
 
 <style scoped lang="scss">
-.predicted-expenses {
-  flex-grow: 1;
-  padding: 10px;
+.monthly-expenses {
+  display: flex;
+  flex-direction: column;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
 
-  .edit {
-    margin-right: 10px;
-  }
+.expenses-table {
+  align-self: center;
 }
+// ul {
+//   list-style-type: none;
+//   padding: 0;
+
+//   .edit {
+//     margin-right: 10px;
+//   }
+// }
 </style>
