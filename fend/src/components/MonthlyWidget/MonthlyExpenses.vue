@@ -55,33 +55,32 @@
 
 <script lang="ts">
 import { Watch, Component, Prop, Vue } from "vue-property-decorator";
-import {
-  monthlyExpenses,
-  MonthlyExpenseFields,
-} from "../../mockData/monthlyExpenses";
+import { MonthlyExpenseFields } from "../../mockData/monthlyExpenses";
 import axios from "axios";
-
-const expenseKeys = ["id", "name", "amountEstimated", "amountActual"];
 
 @Component
 export default class MonthlyExpenses extends Vue {
   @Prop() month!: string;
 
+  expenseKeys = ["id", "name", "amountEstimated", "amountActual"];
+
+  selectedMonthlyExpenses: MonthlyExpenseFields[] = [];
+
   @Watch("month", { immediate: true })
-  async selectedMonthlyExpenses(): Promise<MonthlyExpenseFields[]> {
-    const {
-      data: { expenses },
-    } = await axios({
+  async onMonthChange() {
+    const { data } = await axios({
       url:
         "/monthly_widget/get_records?type=monthly_expense&user_id=7&month=" +
         this.month,
     });
-    return expenses.map((expense: any) => ({
+    console.log(data);
+    const expenses = data.map((expense: any) => ({
       id: expense.id,
       name: expense.name,
-      amountEstimated: expense.estimated,
+      amountEstimated: expense.expected,
       amountActual: expense.actual,
     }));
+    this.selectedMonthlyExpenses = expenses;
   }
 
   async addExpense(expenseName: string, amountEstimated: string) {
