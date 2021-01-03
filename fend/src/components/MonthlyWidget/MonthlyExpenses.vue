@@ -32,24 +32,6 @@
         </tr>
       </tbody>
     </table>
-
-    <!-- <ul class="expenses-list">
-      <li v-for="expense in selectedMonthlyExpenses" :key="expense.id">
-        <input type="text" :placeholder="'Expense name: ' + expense.name" />
-        <input
-          type="text"
-          :placeholder="'Estimated amount: $' + expense.amountEstimated"
-        />
-        <input class="edit" type="submit" value="Edit" />
-        <input
-          v-if="expense.amountActual"
-          type="text"
-          :placeholder="'Actual amount: ' + expense.amountActual"
-        />
-        <input v-else type="text" placeholder="Enter actual amount" />
-        <input type="submit" value="Submit" />
-      </li>
-    </ul> -->
   </div>
 </template>
 
@@ -65,15 +47,20 @@ export default class MonthlyExpenses extends Vue {
   expenseKeys = ["id", "name", "amountEstimated", "amountActual"];
 
   selectedMonthlyExpenses: MonthlyExpenseFields[] = [];
+  expenseName = "";
+  amountEstimated = "";
 
   @Watch("month", { immediate: true })
   async onMonthChange() {
+    this.updateView();
+  }
+
+  async updateView() {
     const { data } = await axios({
       url:
         "/monthly_widget/get_records?type=monthly_expense&user_id=7&month=" +
         this.month,
     });
-    console.log(data);
     const expenses = data.map((expense: any) => ({
       id: expense.id,
       name: expense.name,
@@ -81,6 +68,8 @@ export default class MonthlyExpenses extends Vue {
       amountActual: expense.actual,
     }));
     this.selectedMonthlyExpenses = expenses;
+    this.expenseName = "";
+    this.amountEstimated = "";
   }
 
   async addExpense(expenseName: string, amountEstimated: string) {
@@ -91,7 +80,8 @@ export default class MonthlyExpenses extends Vue {
       estimated: amountEstimated,
       type: "monthly_expense",
     };
-    return await axios.post("/monthly_widget/add_record", post);
+    await axios.post("/monthly_widget/add_record", post);
+    this.updateView();
   }
 }
 </script>
